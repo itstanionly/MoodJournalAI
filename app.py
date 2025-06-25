@@ -40,6 +40,10 @@ if spoken_text:
     st.success(f"Detected Emotion: **{emotion.upper()}**")
     st.info(comfort_user(emotion))
 
+    if emotion in ["happy", "excited", "neutral"]:
+        if st.button("🤣 Tell me a joke!"):
+            st.success(tell_joke())
+
     if emotion in ["sad", "angry"]:
         st.markdown("### 🌸 Playing a soft Hindi song to comfort you:")
 
