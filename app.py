@@ -69,52 +69,62 @@ if st.checkbox("📝 I want to write in my journal"):
             now = datetime.now().strftime("%Y-%m-%d %H:%M")
             f.write(f"\n\n---\nDate: {now}\nMood: {emotion.upper()}\nEntry:\n{journal_text}\n")
         st.success("✅ Journal entry saved!")
-        # --- MoodBot Chat Section ---
+# --- Use current emotion safely ---
+current_emotion = emotion if 'emotion' in locals() else 'neutral'
+
+# --- Fun Games Section ---
 st.markdown("---")
-st.subheader("💬 Talk to MoodBot")
+st.subheader("🎮 Fun Zone: Mini Mood Games")
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+game_option = st.selectbox("Pick a game to play 🎲", ["Select a game", "Fortune Cookie 🍪", "Mind Riddle 🧠"])
 
-user_msg = st.text_input("Type your thoughts here:")
+# 🍪 Fortune Cookie Game
+if game_option == "Fortune Cookie 🍪":
+    if st.button("Crack the Cookie"):
+        fortunes = {
+            "happy": "🌞 A big smile is your superpower today!",
+            "sad": "💌 Someone is silently wishing you well. You are loved.",
+            "angry": "🧘 Take a pause. Inner peace is loading...",
+            "fear": "🛡️ Courage is not the absence of fear. It's the decision to keep going.",
+            "surprise": "🎉 Expect good news — something surprising is coming soon!",
+            "neutral": "🌀 Stay steady. The universe is aligning something special.",
+            "lonely": "🌟 You are not alone. A new bond is on the horizon.",
+            "hopeless": "🕯️ Darkness is temporary. Keep moving — even the stars need night to shine.",
+            "weird": "👾 Your uniqueness is your power — keep being weird & wonderful!"
+        }
+        cookie = fortunes.get(current_emotion.lower(), "✨ You are unique. Let that shine.")
+        st.success(f"🥠 Your fortune: {cookie}")
 
-def mood_bot_response(msg):
-    msg = msg.lower()
-    if any(word in msg for word in ["sad", "hurt", "down"]):
-        return "I'm really sorry you're feeling this way. Remember, you're not alone 🌈"
-    elif any(word in msg for word in ["angry", "mad"]):
-        return "It's okay to feel angry sometimes. Let's calm down together. Want to try music or journaling?"
-    elif any(word in msg for word in ["happy", "joy", "good"]):
-        return "Yay! I'm so glad you're happy 😄 Keep spreading those vibes!"
-    elif "joke" in msg:
-        return tell_joke()
-    elif "love" in msg:
-        return "Love can be beautiful and tough at the same time 💕 I'm here to listen."
-    elif any(word in msg for word in ["music", "song"]):
-        play_music()
-        return "🎵 Playing music for you..."
-    elif any(word in msg for word in ["weird", "crazy"]):
-        st.markdown("""
-            <script>
-            let flash = true;
-            setInterval(() => {
-                document.body.style.backgroundColor = flash ? "#ffe4e1" : "#ffffff";
-                flash = !flash;
-            }, 300);
-            </script>
-        """, unsafe_allow_html=True)
-        return "Uh oh... going into CHAOTIC MODE! 🔴🟣🟡"
-    else:
-        return "Hmm, tell me more... I'm here for you 💖"
+# 🧠 Mind Riddle Game
+elif game_option == "Mind Riddle 🧠":
+    st.markdown("Can you crack this? 🤔")
 
-if user_msg:
-    bot_reply = mood_bot_response(user_msg)
-    st.session_state.chat_history.append(("You", user_msg))
-    st.session_state.chat_history.append(("MoodBot", bot_reply))
+    riddles = [
+        {
+            "question": "🧠 I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?",
+            "answer": "echo"
+        },
+        {
+            "question": "🌑 The more of me you take, the more you leave behind. What am I?",
+            "answer": "footsteps"
+        },
+        {
+            "question": "🔒 What has keys but can’t open locks?",
+            "answer": "piano"
+        }
+    ]
 
-# Show the conversation
-for speaker, msg in st.session_state.chat_history:
-    st.markdown(f"**{speaker}:** {msg}")
+    selected_riddle = random.choice(riddles)
+    st.markdown(f"**Riddle:** {selected_riddle['question']}")
+
+    user_answer = st.text_input("Your answer:")
+
+    if st.button("🔍 Submit Answer"):
+        if user_answer.strip().lower() == selected_riddle['answer']:
+            st.success("🎉 Correct! You're a riddle master!")
+        else:
+            st.error("❌ Nope, try again or ask a friend!")
+
 
 
 
