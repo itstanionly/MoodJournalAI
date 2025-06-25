@@ -11,11 +11,10 @@ def comfort_user(emotion):
         "surprise": "Whoa! That was unexpected 😯 Tell me more!",
         "neutral": "Feeling neutral is okay too. Try writing something to reflect🩷."
     }
- return responses.get(emotion.lower(), "Hmm... I'm not sure how to respond, but I'm here for you! 💗")
+    return responses.get(emotion.lower(), "Hmm... I'm not sure how to respond, but I'm here for you! 💗")
 
 def play_music():
-    
-    webbrowser.open("song1.mp3") 
+    webbrowser.open("song1.mp3")  # This will open the file in your default music player
 
 def tell_joke():
     return pyjokes.get_joke()
