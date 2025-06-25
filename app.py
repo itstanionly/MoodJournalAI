@@ -1,7 +1,8 @@
 import streamlit as st
 from emotion_detection import detect_emotion
-from comfort_tools import comfort_user
+from comfort_tools import comfort_user, tell_joke
 import random
+
 
 st.set_page_config(page_title="MoodJournal AI 💬", page_icon="🎤")
 st.title("🎤 MoodJournal AI")
