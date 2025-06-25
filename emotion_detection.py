@@ -6,7 +6,7 @@ def detect_emotion(text):
         "i want to die", "i feel empty", "i'm hurt", "i feel weak", "i'm not okay",
         "i'm not happy", "i feel like giving up", "i feel useless", "no one cares",
         "i feel unloved", "i feel powerless", "hopeless", "alone", "abandoned",
-        "depressed", "broken", "crying", "lost", "worthless"
+        "depressed", "broken", "crying", "lost", "worthless", "powerless", "useless", "lonely", "hurt"
     ]
     anger_keywords = [
         "i'm angry", "i hate", "so frustrating", "annoyed", "furious", "mad",
